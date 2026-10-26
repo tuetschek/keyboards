@@ -1,0 +1,11 @@
+[main]
+# CapsLock acts as Escape when tapped, but activates the 'nav' layer when held
+capslock = overload(nav, esc)
+
+[nav]
+left = home
+right = end
+up = pageup
+down = pagedown
+delete = insert
+tab = capslock
