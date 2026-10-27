@@ -2,6 +2,7 @@
 #SingleInstance Force
 
 sculptMode := false
+periboardMode := false
 capsUsed := false
 
 ; --- CapsLock: tap = Esc, hold = layer ---
@@ -26,6 +27,23 @@ CapsNav(key) {
 *Down::CapsNav("{PgDn}")
 *Delete::CapsNav("{Insert}")
 
+; CapsLock + number = F-number, [ = F11, ] = F12
+*1::CapsNav("{F1}")
+*2::CapsNav("{F2}")
+*3::CapsNav("{F3}")
+*4::CapsNav("{F4}")
+*5::CapsNav("{F5}")
+*6::CapsNav("{F6}")
+*7::CapsNav("{F7}")
+*8::CapsNav("{F8}")
+*9::CapsNav("{F9}")
+*0::CapsNav("{F10}")
+*[::CapsNav("{F11}")
+*]::CapsNav("{F12}")
+
+; CapsLock + Space = Menu key
+*Space::CapsNav("{AppsKey}")
+
 ; Capslock + Tab actually triggers Capslock
 *Tab:: {
     global capsUsed
@@ -39,6 +57,14 @@ s:: {
     capsUsed := true
     sculptMode := !sculptMode
     TrayTip "Sculpt F-keys " (sculptMode ? "ON" : "OFF")
+}
+
+; CapsLock+P toggles Periboard mode
+p:: {
+    global periboardMode, capsUsed
+    capsUsed := true
+    periboardMode := !periboardMode
+    TrayTip "Periboard mode " (periboardMode ? "ON" : "OFF")
 }
 #HotIf
 
@@ -63,4 +89,9 @@ F1::Send "{Media_Play_Pause}"
 F2::Send "{Volume_Mute}"
 F3::Send "{Volume_Down}"
 F4::Send "{Volume_Up}"
+#HotIf
+
+; --- Periboard 805 Ergo: only while Periboard mode is on ---
+#HotIf periboardMode
+!4::Send "!{F4}"
 #HotIf
